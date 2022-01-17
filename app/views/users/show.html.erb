@@ -1,0 +1,22 @@
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+    <div>
+      <h1><%= @user.name %></h1>
+      <%= link_to t('.change_name_password'), edit_user_registration_path(@user) if @user == current_user %>
+    </div>
+    <table class="table table-borderless users-table text-light">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th></th>
+          <th class="text-center"><%= t('.date') %></th>
+          <th class="text-center"><%= t('.question') %></th>
+          <th class="text-center"><%= t('.prize')%></th>
+          <th class="text-center"><%= t('.hints')%></th>
+        </tr>
+      </thead>
+
+      <%= render partial: 'game', collection: @games %>
+    </table>
+  </div>
+</div>

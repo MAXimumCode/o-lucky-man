@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Millionaire</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+  </head>
+
+  <body>
+    
+    <div class="navbar navbar-light bg-custom">
+      <div class="container">
+        <%= link_to 'Millionaire', root_path, class: 'navbar-brand text-light' %>
+        <% if user_signed_in? %>
+          <div class="navbar-form navbar-right">
+
+            <% if current_user.is_admin? %>
+              <%= link_to 'Админка', rails_admin_path, class: 'btn navbar-btn btn-danger btn-xs' %>
+              <%= link_to 'Залить новые вопросы', new_questions_path, class: 'btn navbar-btn btn-warning btn-xs' %>
+            <% end %>
+
+
+            <%= link_to content_tag(:span, "#{current_user.name} - #{number_to_currency current_user.balance}"),
+                        user_path(current_user),
+                        class: 'btn text-light'
+            %>
+            <%= link_to 'Новая игра', games_path, method: :post, class: 'btn btn-success' %>
+            <%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger' %>
+          </div>
+        <% else %>
+          <div class="navbar-form navbar-right">
+            <%= link_to 'Войти', new_user_session_path, class: 'btn text-light' %>
+            <%= link_to 'Зарегистрироваться', new_user_registration_path, class: 'btn btn-success' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="container mt-3">
+       <% if flash.any? %>
+          <% flash.each do |name, message| %>
+            <div class="alert alert-<%= flash_class_name(name) %> alert-dismissible fade show" role="alert">
+              <%= message %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% end %>
+      <% end %>
+
+    <div class="container">
+      <div class="row mt-4">
+        <div class="col-lg-12">
+          <%= yield %>
+        </div>
+      </div>
+
+      <footer class="buffer-top-lg text-right">
+        <p>&copy; Хороший программист 2021</p>
+      </footer>
+    </div>
+
+  </body>
+</html>

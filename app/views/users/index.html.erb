@@ -1,0 +1,27 @@
+<h1><%= t('.rating') %></h1>
+
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+    <table class="table table-borderless users-table text-light">
+      <thead>
+        <tr>
+          <th class="text-center"><%= t('.place') %></th>
+          <th class="text-center"><%= t('.name') %></th>
+          <th class="text-center"><%= t('.prize') %></th>
+          <th class="text-center"><%= t('.games') %></th>
+          <th class="text-center"><%= t('.for_game') %></th>
+        </tr>
+      </thead>
+
+      <% @users.each.with_index(1) do |user, index| %>
+        <tr class="text-center">
+          <td><%= index %></td>
+          <td><%= link_to user.name, user_path(user) %></td>
+          <td><%= number_to_currency user.balance %></td>
+          <td><%= user.games.count %></td>
+          <td><%= user.average_prize %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
