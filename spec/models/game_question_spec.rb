@@ -1,6 +1,7 @@
 # (c) goodprogrammer.ru
 
 require 'rails_helper'
+require 'support/factory_bot'
 
 # Тестовый сценарий для модели игрового вопроса, в идеале весь наш функционал
 # (все методы) должны быть протестированы.
@@ -9,7 +10,7 @@ RSpec.describe GameQuestion, type: :model do
   # сценария: она будет создана на фабрике заново для каждого блока it,
   # где она вызывается.
   let(:game_question) do
-    FactoryBot.create(:game_question, a: 2, b: 1, c: 4, d: 3)
+    create(:game_question, a: 2, b: 1, c: 4, d: 3)
   end
 
   # Группа тестов на игровое состояние объекта вопроса

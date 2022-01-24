@@ -5,6 +5,7 @@ require 'rails_helper'
 
 # Наш собственный класс с вспомогательными методами
 require 'support/my_spec_helper'
+require 'support/factory_bot'
 
 # Тестовый сценарий для модели Игры
 #
@@ -12,11 +13,11 @@ require 'support/my_spec_helper'
 # ключевая логика игры и значит работы сайта.
 RSpec.describe Game, type: :model do
   # Пользователь для создания игр
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
 
   # Игра с прописанными игровыми вопросами
   let(:game_w_questions) do
-    FactoryBot.create(:game_with_questions, user: user)
+    create(:game_with_questions, user: user)
   end
 
   # Группа тестов на работу фабрики создания новых игр
@@ -118,21 +119,19 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe '.current_game_question' do
-    it 'return current question' do
+  describe '#current_game_question' do
+    it 'returns current question' do
       game_w_questions.current_level = 10
       expect(game_w_questions.current_game_question).to eq(game_w_questions.game_questions[10])
     end
   end
 
-  describe '.previous_level' do
-    context 'when new level is 5' do
-      let(:new_level) { 5 }
+  describe '#previous_level' do
+    let(:new_level) { 5 }
 
-      it 'return previous level of game' do
-        game_w_questions.current_level = new_level + 1
-        expect(game_w_questions.previous_level).to eq(new_level)
-      end
+    it 'returns previous level of game' do
+      game_w_questions.current_level = new_level + 1
+      expect(game_w_questions.previous_level).to eq(new_level)
     end
   end
 end
