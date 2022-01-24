@@ -134,4 +134,45 @@ RSpec.describe Game, type: :model do
       expect(game_w_questions.previous_level).to eq(new_level)
     end
   end
+
+  describe '#answer_current_question!' do
+    let(:question) { game_w_questions.current_game_question }
+
+    context 'if answer is correct' do
+      it 'returns correct answer' do
+        expect(game_w_questions.answer_current_question!(question.correct_answer_key)).to be_truthy
+        expect(game_w_questions.status).to eq :in_progress
+        expect(game_w_questions).not_to be_finished
+      end
+    end
+
+    context 'if answer is incorrect' do
+      it 'returns incorrect answer' do
+        expect(game_w_questions.answer_current_question!('a')).to be_falsey
+        expect(game_w_questions.status).to eq :fail
+        expect(game_w_questions).to be_finished
+      end
+    end
+
+    context 'if answer is last' do
+      it 'will finish game with won status' do
+        game_w_questions.current_level = Question::QUESTION_LEVELS.max
+
+        expect(game_w_questions.answer_current_question!(question.correct_answer_key)).to be_truthy
+        expect(game_w_questions.status).to eq :won
+        expect(game_w_questions).to be_finished
+        expect(game_w_questions.prize).to eq(1_000_000)
+      end
+    end
+
+    context 'if timeout' do
+      it 'will finish game with loose status' do
+        game_w_questions.created_at = 1.hour.ago
+
+        expect(game_w_questions.answer_current_question!(question.correct_answer_key)).to be_falsey
+        expect(game_w_questions.status).to eq :timeout
+        expect(game_w_questions).to be_finished
+      end
+    end
+  end
 end
