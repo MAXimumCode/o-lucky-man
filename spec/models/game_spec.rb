@@ -5,7 +5,6 @@ require 'rails_helper'
 
 # Наш собственный класс с вспомогательными методами
 require 'support/my_spec_helper'
-require 'support/factory_bot'
 
 # Тестовый сценарий для модели Игры
 #

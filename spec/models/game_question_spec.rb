@@ -1,7 +1,6 @@
 # (c) goodprogrammer.ru
 
 require 'rails_helper'
-require 'support/factory_bot'
 
 # Тестовый сценарий для модели игрового вопроса, в идеале весь наш функционал
 # (все методы) должны быть протестированы.
