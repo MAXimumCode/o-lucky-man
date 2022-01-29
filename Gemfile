@@ -13,6 +13,7 @@ gem 'devise-i18n'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'font-awesome-rails'
 gem 'rails-controller-testing'
+gem 'rails_admin'
 
 group :development, :test do
   gem 'byebug'
