@@ -124,5 +124,22 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to(game_path(game_w_questions))
       expect(flash[:alert]).to be
     end
+
+    it 'make incorrect answer' do
+      answer_letters = %w[a b c d]
+      answer_letters.delete(game_w_questions.current_game_question.correct_answer_key)
+
+      put :answer, params: { id: game_w_questions.id, letter: answer_letters.sample }
+
+      game = assigns(:game)
+
+      expect(game).to be_finished
+      expect(game.status).to eq :fail
+      expect(game.current_level).to eq 0
+      expect(response).to redirect_to user_path(user)
+      expect(flash[:alert]).to be
+    end
   end
+
+
 end
