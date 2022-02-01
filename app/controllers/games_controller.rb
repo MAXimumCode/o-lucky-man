@@ -57,9 +57,9 @@ class GamesController < ApplicationController
   def help
     msg =
       if @game.use_help(params[:help_type].to_sym)
-        {flash: {info: I18n.t('controllers.games.help_used')}}
+        { flash: { info: I18n.t('controllers.games.help_used') } }
       else
-        {alert: I18n.t('controllers.games.help_not_used')}
+        { alert: I18n.t('controllers.games.help_not_used') }
       end
 
     redirect_to game_path(@game), msg
