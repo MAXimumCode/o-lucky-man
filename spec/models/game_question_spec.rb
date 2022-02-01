@@ -98,17 +98,24 @@ RSpec.describe GameQuestion, type: :model do
 
       expect(game_question.help_hash).to include(:friend_call)
     end
-  end
 
-  describe '#add_friend_call' do
     it 'Check that is no key in the hints yet' do
       expect(game_question.help_hash).not_to include(:friend_call)
     end
+  end
+
+  describe '#add_friend_call' do
 
     it 'Checking the hint generation' do
       game_question.add_friend_call
       expect(game_question.help_hash[:friend_call]).to be
       expect(game_question.help_hash).to include(:friend_call)
+    end
+
+    it 'Checking display correct hint' do
+      expect(game_question.add_friend_call).to be true
+      f_c = GameQuestion.find(game_question.id).help_hash[:friend_call]
+      expect(f_c).to include 'что это вариант'
     end
   end
 end
