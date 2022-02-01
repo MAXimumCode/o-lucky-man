@@ -13,7 +13,7 @@ RSpec.describe GameQuestion, type: :model do
   end
 
   # Группа тестов на игровое состояние объекта вопроса
-  context 'game status' do
+  describe 'game status' do
     # Тест на правильную генерацию хэша с вариантами
     it 'correct .variants' do
       expect(game_question.variants).to eq(
@@ -54,23 +54,22 @@ RSpec.describe GameQuestion, type: :model do
       # проверяем новые значение хэша
       expect(gq.help_hash).to eq({some_key1: 'blabla1', 'some_key2' => 'blabla2'})
     end
+
+    it 'correct .help_hash' do
+      expect(game_question.help_hash).to eq({})
+
+      game_question.help_hash[:some_key1] = 'blabla1'
+      game_question.help_hash['some_key2'] = 'blabla2'
+
+      expect(game_question.save).to be_truthy
+
+      gq = GameQuestion.find(game_question.id)
+
+      expect(gq.help_hash).to eq({some_key1: 'blabla1', 'some_key2' => 'blabla2'})
+    end
   end
 
-
-  it 'correct .help_hash' do
-    expect(game_question.help_hash).to eq({})
-
-    game_question.help_hash[:some_key1] = 'blabla1'
-    game_question.help_hash['some_key2'] = 'blabla2'
-
-    expect(game_question.save).to be_truthy
-
-    gq = GameQuestion.find(game_question.id)
-
-    expect(gq.help_hash).to eq({some_key1: 'blabla1', 'some_key2' => 'blabla2'})
-  end
-
-  context 'user helpers' do
+  describe 'user helpers' do
     it 'correct audience_help' do
       expect(game_question.help_hash).not_to include(:audience_help)
 
