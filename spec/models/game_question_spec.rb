@@ -99,4 +99,16 @@ RSpec.describe GameQuestion, type: :model do
       expect(game_question.help_hash).to include(:friend_call)
     end
   end
+
+  describe '#add_friend_call' do
+    it 'Check that is no key in the hints yet' do
+      expect(game_question.help_hash).not_to include(:friend_call)
+    end
+
+    it 'Checking the hint generation' do
+      game_question.add_friend_call
+      expect(game_question.help_hash[:friend_call]).to be
+      expect(game_question.help_hash).to include(:friend_call)
+    end
+  end
 end
