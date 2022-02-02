@@ -115,6 +115,7 @@ RSpec.describe GameQuestion, type: :model do
     it 'Checking display correct hint' do
       expect(game_question.add_friend_call).to be true
       expect(game_question.help_hash[:friend_call]).to match('считает, что это вариант')
+      expect(game_question.help_hash[:friend_call]).to end_with(/[A-D]/)
     end
   end
 end
