@@ -33,10 +33,7 @@ RSpec.feature 'USER looks another user profile', type: :feature do
     expect(page).to have_content '2'
     expect(page).to have_content 'в процессе'
     expect(page).to have_content '04 февр., 22:00'
-    expect(page).to have_content '0'
-    expect(page).to have_content '0 ₽'
 
-    expect(page).to have_content '2'
     expect(page).to have_content 'победа'
     expect(page).to have_content '05 февр., 22:00'
     expect(page).to have_content '15'
