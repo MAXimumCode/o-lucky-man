@@ -38,6 +38,7 @@ RSpec.configure do |config|
   # https://github.com/plataformatec/devise/issues/4133
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
+  config.include Warden::Test::Helpers, type: :feature
 
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
@@ -63,3 +64,5 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+Capybara.asset_host = "http://localhost:3000"
