@@ -21,6 +21,7 @@ RSpec.feature 'USER looks another user profile', type: :feature do
 
     click_link 'User2'
 
+    expect(page).to have_current_path "/users/#{user2.id}"
     expect(page).not_to have_content 'Сменить имя и пароль'
     expect(page).to have_content 'User2'
 
@@ -30,7 +31,6 @@ RSpec.feature 'USER looks another user profile', type: :feature do
     expect(page).to have_content 'Выигрыш'
     expect(page).to have_content 'Подсказки'
 
-    expect(page).to have_content '2'
     expect(page).to have_content 'в процессе'
     expect(page).to have_content '04 февр., 22:00'
 
